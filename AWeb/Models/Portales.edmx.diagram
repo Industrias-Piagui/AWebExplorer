@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="18aae7c0fa1d456ba7232c43a7de75b7" Name="Diagram1">
+        <EntityTypeShape EntityType="PortalesModel.ARCHIVOS" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.ARCHIVOS_log" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.BuenFinMetas" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.cLogin" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.CONF_FTP" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.CONF_SECCION_LIVERPOOL" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.cProcesos" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.DESCARGAS" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.DETDESCARGAS_20012016" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.DETDESCARGAS_26012017" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.EstatusPH" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.ARCHIVOS_SELLIN" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.cLogin_Respaldo" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.DETDESCARGAS" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.RECARGAS_CONF" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PortalesModel.cLoginPhReportTypes" Width="1.5" PointX="8.75" PointY="11.75" />
+        <EntityTypeShape EntityType="PortalesModel.cLoginPhReportSalesInv" Width="1.5" PointX="5" PointY="11.375" />
+        <EntityTypeShape EntityType="PortalesModel.cLoginPhReportVariables" Width="1.5" PointX="11" PointY="11.5" />
+        <AssociationConnector Association="PortalesModel.FK_cLoginPhReportSalesInv_cLogin" />
+        <AssociationConnector Association="PortalesModel.FK_cLoginPhReportVariables_cLoginPhReportTypes" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

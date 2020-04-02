@@ -1,0 +1,41 @@
+<div style="text-align: center">
+  <h1>Actualizar ventas netas diarias</h1>
+
+  <ngb-alert *ngIf="showAlert" type="success" (click)="showAlert = false">
+    Los datos fueron actualizados correctamente
+  </ngb-alert>
+  <ngb-alert *ngIf="showErroAlert " type="danger" (click)="showErroAlert = false">
+    Ocurrió un error durante el proceso de descarga, por favor intente de nuevo en unos minutos
+  </ngb-alert>
+
+  <span>Seleccione el rango de fechas</span>
+  <br />
+
+  <ngb-datepicker (select)="onDateSelection($event)"
+                  [displayMonths]="2"
+                  [dayTemplate]="template"
+                  [maxDate]="maxDate"
+                  outsideDays="hidden"
+                  #dp>
+  </ngb-datepicker>
+
+  <ng-template let-date
+               let-focused="focused"
+               #template>
+
+    <span class="custom-day"
+          [class.focused]="focused"
+          [class.range]="isRange(date)"
+          [class.faded]="isHovered(date) || isInside(date)"
+          (mouseenter)="hoveredDate = date"
+          (mouseleave)="hoveredDate = null">
+      {{ date.day }}
+    </span>
+  </ng-template>
+</div>
+
+<div style="margin: auto; margin-top: 16px; max-width: 476px; text-align: right">
+  <button type="button" class="btn btn-primary" (click)="runRobot($event)" [disabled]="disabledButton">
+    {{ disabledButton ? 'Cargando...' : 'Generar' }}
+  </button>
+</div>

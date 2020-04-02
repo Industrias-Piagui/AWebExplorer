@@ -1,0 +1,832 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PortalesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ARCHIVOS">
+          <Key>
+            <PropertyRef Name="FECHA" />
+            <PropertyRef Name="CLIENTE" />
+            <PropertyRef Name="ARCHIVO" />
+          </Key>
+          <Property Name="FECHA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CLIENTE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ARCHIVO" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RUTA" Type="varchar" MaxLength="200" />
+          <Property Name="TIPO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ARCHIVOS_log">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="CLIENTE" />
+            <PropertyRef Name="ARCHIVO" />
+          </Key>
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="CLIENTE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ARCHIVO" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RUTA" Type="varchar" MaxLength="200" />
+          <Property Name="TIPO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PortalesPROD.dbo.ARCHIVOS_SELLIN' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ARCHIVOS_SELLIN">
+          <Key>
+            <PropertyRef Name="FECHA" />
+            <PropertyRef Name="CLIENTE" />
+            <PropertyRef Name="ARCHIVO" />
+          </Key>
+          <Property Name="FECHA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CLIENTE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ARCHIVO" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RUTA" Type="varchar" MaxLength="200" />
+          <Property Name="TIPO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BuenFinMetas">
+          <Key>
+            <PropertyRef Name="idSAMeta" />
+          </Key>
+          <Property Name="idSAMeta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="vtsBrutas" Type="varchar" MaxLength="10" />
+          <Property Name="piezas" Type="int" />
+          <Property Name="activo" Type="int" />
+        </EntityType>
+        <EntityType Name="cLogin">
+          <Key>
+            <PropertyRef Name="cLogId" />
+          </Key>
+          <Property Name="cLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cLogPortal" Type="nvarchar" MaxLength="40" />
+          <Property Name="cLogEmpresa" Type="nvarchar" MaxLength="30" />
+          <Property Name="cLogUsuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="cLogContrasenia" Type="nvarchar" MaxLength="50" />
+          <Property Name="cLogUrl" Type="nvarchar(max)" />
+          <Property Name="cLogRutaDescarga" Type="nvarchar" MaxLength="50" />
+          <Property Name="cLogOutUrl" Type="nvarchar(max)" />
+          <Property Name="RutaOTB" Type="varchar(max)" />
+          <Property Name="RutaOBT_SellIn" Type="varchar(max)" />
+          <Property Name="RutaOTB_SellIn_Plan" Type="varchar(max)" />
+          <Property Name="vkorg" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PortalesPROD.dbo.cLogin_Respaldo' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="cLogin_Respaldo">
+          <Key>
+            <PropertyRef Name="cLogId" />
+          </Key>
+          <Property Name="cLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cLogPortal" Type="nvarchar" MaxLength="40" />
+          <Property Name="cLogEmpresa" Type="nvarchar" MaxLength="30" />
+          <Property Name="cLogUsuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="cLogContrasenia" Type="nvarchar" MaxLength="50" />
+          <Property Name="cLogUrl" Type="nvarchar(max)" />
+          <Property Name="cLogRutaDescarga" Type="nvarchar" MaxLength="50" />
+          <Property Name="cLogOutUrl" Type="nvarchar(max)" />
+          <Property Name="RutaOTB" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="cLoginPhReportSalesInv">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Spv" Type="varchar(max)" Nullable="false" />
+          <Property Name="ExcelFileName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InitDocumentId" Type="int" Nullable="false" />
+          <Property Name="cLogId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cLoginPhReportTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cLoginPhReportVariables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NavUrl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ObjIds" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ExcelFileName" Type="varchar" MaxLength="255" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONF_FTP">
+          <Key>
+            <PropertyRef Name="CLIENTE" />
+          </Key>
+          <Property Name="CLIENTE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SERVIDOR" Type="varchar" MaxLength="50" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="50" />
+          <Property Name="PWD" Type="varchar" MaxLength="50" />
+          <Property Name="PUERTO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CONF_SECCION_LIVERPOOL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIPO" Type="varchar" MaxLength="50" />
+          <Property Name="SECCION_INI" Type="varchar" MaxLength="50" />
+          <Property Name="SECCION_FIN" Type="varchar" MaxLength="50" />
+          <Property Name="TIENDA_INI" Type="varchar" MaxLength="50" />
+          <Property Name="TIENDA_FIN" Type="varchar" MaxLength="50" />
+          <Property Name="GRUPO" Type="varchar" MaxLength="50" />
+          <Property Name="PROVEEDOR" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="cProcesos">
+          <Key>
+            <PropertyRef Name="cProEmpresa" />
+            <PropertyRef Name="cProSociedad" />
+            <PropertyRef Name="cProProceso" />
+            <PropertyRef Name="cProSecuencia" />
+          </Key>
+          <Property Name="cProEmpresa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProSociedad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProProceso" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProSecuencia" Type="int" Nullable="false" />
+          <Property Name="cProTipo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProAtributo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProNombreAtributo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProValorAtributo" Type="nvarchar(max)" />
+          <Property Name="cProAccion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cProHabilitar" Type="bit" />
+        </EntityType>
+        <EntityType Name="DESCARGAS">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="int" Nullable="false" />
+          <Property Name="CADENA" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="STS" Type="int" />
+        </EntityType>
+        <EntityType Name="DETDESCARGAS">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="int" Nullable="false" />
+          <Property Name="ID_LOG" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="TIPOMSG" Type="varchar" MaxLength="5" />
+          <Property Name="MESSAGE" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="DETDESCARGAS_20012016">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="int" Nullable="false" />
+          <Property Name="ID_LOG" Type="int" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="TIPOMSG" Type="varchar" MaxLength="5" />
+          <Property Name="MESSAGE" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="DETDESCARGAS_26012017">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="int" Nullable="false" />
+          <Property Name="ID_LOG" Type="int" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="TIPOMSG" Type="varchar" MaxLength="5" />
+          <Property Name="MESSAGE" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="EstatusPH">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="TipoArchivo" />
+            <PropertyRef Name="idDescarga" />
+          </Key>
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Estatus" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Intento" Type="int" />
+          <Property Name="TipoArchivo" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Secuencia" Type="int" />
+          <Property Name="Resultado" Type="text" />
+          <Property Name="idDescarga" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PortalesPROD.dbo.RECARGAS_CONF' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="RECARGAS_CONF">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="USUARIO" />
+            <PropertyRef Name="CADENA" />
+            <PropertyRef Name="STATUS" />
+          </Key>
+          <Property Name="Fecha" Type="smalldatetime" Nullable="false" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CADENA" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="STATUS" Type="bit" Nullable="false" />
+          <Property Name="TIPOARCHIVO" Type="varchar" MaxLength="50" />
+          <Property Name="RESULTADO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_cLoginPhReportSalesInv_cLogin">
+          <End Role="cLogin" Type="Self.cLogin" Multiplicity="1" />
+          <End Role="cLoginPhReportSalesInv" Type="Self.cLoginPhReportSalesInv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cLogin">
+              <PropertyRef Name="cLogId" />
+            </Principal>
+            <Dependent Role="cLoginPhReportSalesInv">
+              <PropertyRef Name="cLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cLoginPhReportVariables_cLoginPhReportTypes">
+          <End Role="cLoginPhReportTypes" Type="Self.cLoginPhReportTypes" Multiplicity="1" />
+          <End Role="cLoginPhReportVariables" Type="Self.cLoginPhReportVariables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cLoginPhReportTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cLoginPhReportVariables">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PortalesModelStoreContainer">
+          <EntitySet Name="ARCHIVOS" EntityType="Self.ARCHIVOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ARCHIVOS_log" EntityType="Self.ARCHIVOS_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuenFinMetas" EntityType="Self.BuenFinMetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cLogin" EntityType="Self.cLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cLoginPhReportSalesInv" EntityType="Self.cLoginPhReportSalesInv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cLoginPhReportTypes" EntityType="Self.cLoginPhReportTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cLoginPhReportVariables" EntityType="Self.cLoginPhReportVariables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONF_FTP" EntityType="Self.CONF_FTP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONF_SECCION_LIVERPOOL" EntityType="Self.CONF_SECCION_LIVERPOOL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cProcesos" EntityType="Self.cProcesos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DESCARGAS" EntityType="Self.DESCARGAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETDESCARGAS" EntityType="Self.DETDESCARGAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETDESCARGAS_20012016" EntityType="Self.DETDESCARGAS_20012016" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETDESCARGAS_26012017" EntityType="Self.DETDESCARGAS_26012017" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstatusPH" EntityType="Self.EstatusPH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ARCHIVOS_SELLIN" EntityType="Self.ARCHIVOS_SELLIN" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ARCHIVOS_SELLIN].[FECHA] AS [FECHA], 
+    [ARCHIVOS_SELLIN].[CLIENTE] AS [CLIENTE], 
+    [ARCHIVOS_SELLIN].[ARCHIVO] AS [ARCHIVO], 
+    [ARCHIVOS_SELLIN].[RUTA] AS [RUTA], 
+    [ARCHIVOS_SELLIN].[TIPO] AS [TIPO]
+    FROM [dbo].[ARCHIVOS_SELLIN] AS [ARCHIVOS_SELLIN]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="cLogin_Respaldo" EntityType="Self.cLogin_Respaldo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [cLogin_Respaldo].[cLogId] AS [cLogId], 
+    [cLogin_Respaldo].[cLogPortal] AS [cLogPortal], 
+    [cLogin_Respaldo].[cLogEmpresa] AS [cLogEmpresa], 
+    [cLogin_Respaldo].[cLogUsuario] AS [cLogUsuario], 
+    [cLogin_Respaldo].[cLogContrasenia] AS [cLogContrasenia], 
+    [cLogin_Respaldo].[cLogUrl] AS [cLogUrl], 
+    [cLogin_Respaldo].[cLogRutaDescarga] AS [cLogRutaDescarga], 
+    [cLogin_Respaldo].[cLogOutUrl] AS [cLogOutUrl], 
+    [cLogin_Respaldo].[RutaOTB] AS [RutaOTB]
+    FROM [dbo].[cLogin_Respaldo] AS [cLogin_Respaldo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RECARGAS_CONF" EntityType="Self.RECARGAS_CONF" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RECARGAS_CONF].[Fecha] AS [Fecha], 
+    [RECARGAS_CONF].[USUARIO] AS [USUARIO], 
+    [RECARGAS_CONF].[CADENA] AS [CADENA], 
+    [RECARGAS_CONF].[STATUS] AS [STATUS], 
+    [RECARGAS_CONF].[TIPOARCHIVO] AS [TIPOARCHIVO], 
+    [RECARGAS_CONF].[RESULTADO] AS [RESULTADO]
+    FROM [dbo].[RECARGAS_CONF] AS [RECARGAS_CONF]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_cLoginPhReportSalesInv_cLogin" Association="Self.FK_cLoginPhReportSalesInv_cLogin">
+            <End Role="cLogin" EntitySet="cLogin" />
+            <End Role="cLoginPhReportSalesInv" EntitySet="cLoginPhReportSalesInv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cLoginPhReportVariables_cLoginPhReportTypes" Association="Self.FK_cLoginPhReportVariables_cLoginPhReportTypes">
+            <End Role="cLoginPhReportTypes" EntitySet="cLoginPhReportTypes" />
+            <End Role="cLoginPhReportVariables" EntitySet="cLoginPhReportVariables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PortalesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ARCHIVOS">
+          <Key>
+            <PropertyRef Name="FECHA" />
+            <PropertyRef Name="CLIENTE" />
+            <PropertyRef Name="ARCHIVO" />
+          </Key>
+          <Property Name="FECHA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLIENTE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ARCHIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RUTA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ARCHIVOS_log">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="CLIENTE" />
+            <PropertyRef Name="ARCHIVO" />
+          </Key>
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CLIENTE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ARCHIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RUTA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BuenFinMetas">
+          <Key>
+            <PropertyRef Name="idSAMeta" />
+          </Key>
+          <Property Name="idSAMeta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="vtsBrutas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="piezas" Type="Int32" />
+          <Property Name="activo" Type="Int32" />
+        </EntityType>
+        <EntityType Name="cLogin">
+          <Key>
+            <PropertyRef Name="cLogId" />
+          </Key>
+          <Property Name="cLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cLogPortal" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="cLogEmpresa" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cLogUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cLogContrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cLogUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cLogRutaDescarga" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cLogOutUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RutaOTB" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RutaOBT_SellIn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RutaOTB_SellIn_Plan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vkorg" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cLoginPhReportSalesInv" Relationship="PortalesModel.FK_cLoginPhReportSalesInv_cLogin" FromRole="cLogin" ToRole="cLoginPhReportSalesInv" />
+        </EntityType>
+        <EntityType Name="CONF_FTP">
+          <Key>
+            <PropertyRef Name="CLIENTE" />
+          </Key>
+          <Property Name="CLIENTE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SERVIDOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PWD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PUERTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CONF_SECCION_LIVERPOOL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SECCION_INI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SECCION_FIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIENDA_INI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIENDA_FIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GRUPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROVEEDOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cProcesos">
+          <Key>
+            <PropertyRef Name="cProEmpresa" />
+            <PropertyRef Name="cProSociedad" />
+            <PropertyRef Name="cProProceso" />
+            <PropertyRef Name="cProSecuencia" />
+          </Key>
+          <Property Name="cProEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProSociedad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProProceso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProSecuencia" Type="Int32" Nullable="false" />
+          <Property Name="cProTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProAtributo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProNombreAtributo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProValorAtributo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cProAccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cProHabilitar" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DESCARGAS">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="Int32" Nullable="false" />
+          <Property Name="CADENA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="STS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DETDESCARGAS_20012016">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="Int32" Nullable="false" />
+          <Property Name="ID_LOG" Type="Int32" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="TIPOMSG" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DETDESCARGAS_26012017">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="Int32" Nullable="false" />
+          <Property Name="ID_LOG" Type="Int32" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="TIPOMSG" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EstatusPH">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="TipoArchivo" />
+            <PropertyRef Name="idDescarga" />
+          </Key>
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Intento" Type="Int32" />
+          <Property Name="TipoArchivo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Secuencia" Type="Int32" />
+          <Property Name="Resultado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idDescarga" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ARCHIVOS_SELLIN">
+          <Key>
+            <PropertyRef Name="FECHA" />
+            <PropertyRef Name="CLIENTE" />
+            <PropertyRef Name="ARCHIVO" />
+          </Key>
+          <Property Name="FECHA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLIENTE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ARCHIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RUTA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cLogin_Respaldo">
+          <Key>
+            <PropertyRef Name="cLogId" />
+          </Key>
+          <Property Name="cLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cLogPortal" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="cLogEmpresa" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cLogUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cLogContrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cLogUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cLogRutaDescarga" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cLogOutUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RutaOTB" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DETDESCARGAS">
+          <Key>
+            <PropertyRef Name="ID_DESCARGA" />
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_DESCARGA" Type="Int32" Nullable="false" />
+          <Property Name="ID_LOG" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="TIPOMSG" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RECARGAS_CONF">
+          <Key>
+            <PropertyRef Name="Fecha" />
+            <PropertyRef Name="USUARIO" />
+            <PropertyRef Name="CADENA" />
+            <PropertyRef Name="STATUS" />
+          </Key>
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CADENA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STATUS" Type="Boolean" Nullable="false" />
+          <Property Name="TIPOARCHIVO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESULTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="PortalesPRODEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ARCHIVOS" EntityType="Self.ARCHIVOS" />
+          <EntitySet Name="ARCHIVOS_log" EntityType="Self.ARCHIVOS_log" />
+          <EntitySet Name="BuenFinMetas" EntityType="Self.BuenFinMetas" />
+          <EntitySet Name="cLogin" EntityType="Self.cLogin" />
+          <EntitySet Name="CONF_FTP" EntityType="Self.CONF_FTP" />
+          <EntitySet Name="CONF_SECCION_LIVERPOOL" EntityType="Self.CONF_SECCION_LIVERPOOL" />
+          <EntitySet Name="cProcesos" EntityType="Self.cProcesos" />
+          <EntitySet Name="DESCARGAS" EntityType="Self.DESCARGAS" />
+          <EntitySet Name="DETDESCARGAS_20012016" EntityType="Self.DETDESCARGAS_20012016" />
+          <EntitySet Name="DETDESCARGAS_26012017" EntityType="Self.DETDESCARGAS_26012017" />
+          <EntitySet Name="EstatusPH" EntityType="Self.EstatusPH" />
+          <EntitySet Name="ARCHIVOS_SELLIN" EntityType="Self.ARCHIVOS_SELLIN" />
+          <EntitySet Name="cLogin_Respaldo" EntityType="Self.cLogin_Respaldo" />
+          <EntitySet Name="DETDESCARGAS" EntityType="Self.DETDESCARGAS" />
+          <EntitySet Name="RECARGAS_CONF" EntityType="Self.RECARGAS_CONF" />
+          <EntitySet Name="cLoginPhReportTypes" EntityType="PortalesModel.cLoginPhReportTypes" />
+          <EntitySet Name="cLoginPhReportSalesInv" EntityType="PortalesModel.cLoginPhReportSalesInv" />
+          <EntitySet Name="cLoginPhReportVariables" EntityType="PortalesModel.cLoginPhReportVariables" />
+          <AssociationSet Name="FK_cLoginPhReportSalesInv_cLogin" Association="PortalesModel.FK_cLoginPhReportSalesInv_cLogin">
+            <End Role="cLogin" EntitySet="cLogin" />
+            <End Role="cLoginPhReportSalesInv" EntitySet="cLoginPhReportSalesInv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cLoginPhReportVariables_cLoginPhReportTypes" Association="PortalesModel.FK_cLoginPhReportVariables_cLoginPhReportTypes">
+            <End Role="cLoginPhReportTypes" EntitySet="cLoginPhReportTypes" />
+            <End Role="cLoginPhReportVariables" EntitySet="cLoginPhReportVariables" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="cLoginPhReportTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cLoginPhReportVariables" Relationship="PortalesModel.FK_cLoginPhReportVariables_cLoginPhReportTypes" FromRole="cLoginPhReportTypes" ToRole="cLoginPhReportVariables" />
+        </EntityType>
+        <EntityType Name="cLoginPhReportSalesInv">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Spv" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExcelFileName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InitDocumentId" Type="Int32" Nullable="false" />
+          <Property Name="cLogId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cLogin" Relationship="PortalesModel.FK_cLoginPhReportSalesInv_cLogin" FromRole="cLoginPhReportSalesInv" ToRole="cLogin" />
+        </EntityType>
+        <EntityType Name="cLoginPhReportVariables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NavUrl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ObjIds" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ExcelFileName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cLoginPhReportTypes" Relationship="PortalesModel.FK_cLoginPhReportVariables_cLoginPhReportTypes" FromRole="cLoginPhReportVariables" ToRole="cLoginPhReportTypes" />
+        </EntityType>
+        <Association Name="FK_cLoginPhReportSalesInv_cLogin">
+          <End Type="PortalesModel.cLogin" Role="cLogin" Multiplicity="1" />
+          <End Type="PortalesModel.cLoginPhReportSalesInv" Role="cLoginPhReportSalesInv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cLogin">
+              <PropertyRef Name="cLogId" />
+            </Principal>
+            <Dependent Role="cLoginPhReportSalesInv">
+              <PropertyRef Name="cLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cLoginPhReportVariables_cLoginPhReportTypes">
+          <End Type="PortalesModel.cLoginPhReportTypes" Role="cLoginPhReportTypes" Multiplicity="1" />
+          <End Type="PortalesModel.cLoginPhReportVariables" Role="cLoginPhReportVariables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cLoginPhReportTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cLoginPhReportVariables">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PortalesModelStoreContainer" CdmEntityContainer="PortalesPRODEntities">
+          <EntitySetMapping Name="ARCHIVOS">
+            <EntityTypeMapping TypeName="PortalesModel.ARCHIVOS">
+              <MappingFragment StoreEntitySet="ARCHIVOS">
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="CLIENTE" ColumnName="CLIENTE" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="RUTA" ColumnName="RUTA" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ARCHIVOS_log">
+            <EntityTypeMapping TypeName="PortalesModel.ARCHIVOS_log">
+              <MappingFragment StoreEntitySet="ARCHIVOS_log">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="CLIENTE" ColumnName="CLIENTE" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="RUTA" ColumnName="RUTA" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuenFinMetas">
+            <EntityTypeMapping TypeName="PortalesModel.BuenFinMetas">
+              <MappingFragment StoreEntitySet="BuenFinMetas">
+                <ScalarProperty Name="idSAMeta" ColumnName="idSAMeta" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="vtsBrutas" ColumnName="vtsBrutas" />
+                <ScalarProperty Name="piezas" ColumnName="piezas" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cLogin">
+            <EntityTypeMapping TypeName="PortalesModel.cLogin">
+              <MappingFragment StoreEntitySet="cLogin">
+                <ScalarProperty Name="vkorg" ColumnName="vkorg" />
+                <ScalarProperty Name="cLogId" ColumnName="cLogId" />
+                <ScalarProperty Name="cLogPortal" ColumnName="cLogPortal" />
+                <ScalarProperty Name="cLogEmpresa" ColumnName="cLogEmpresa" />
+                <ScalarProperty Name="cLogUsuario" ColumnName="cLogUsuario" />
+                <ScalarProperty Name="cLogContrasenia" ColumnName="cLogContrasenia" />
+                <ScalarProperty Name="cLogUrl" ColumnName="cLogUrl" />
+                <ScalarProperty Name="cLogRutaDescarga" ColumnName="cLogRutaDescarga" />
+                <ScalarProperty Name="cLogOutUrl" ColumnName="cLogOutUrl" />
+                <ScalarProperty Name="RutaOTB" ColumnName="RutaOTB" />
+                <ScalarProperty Name="RutaOBT_SellIn" ColumnName="RutaOBT_SellIn" />
+                <ScalarProperty Name="RutaOTB_SellIn_Plan" ColumnName="RutaOTB_SellIn_Plan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONF_FTP">
+            <EntityTypeMapping TypeName="PortalesModel.CONF_FTP">
+              <MappingFragment StoreEntitySet="CONF_FTP">
+                <ScalarProperty Name="CLIENTE" ColumnName="CLIENTE" />
+                <ScalarProperty Name="SERVIDOR" ColumnName="SERVIDOR" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="PUERTO" ColumnName="PUERTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONF_SECCION_LIVERPOOL">
+            <EntityTypeMapping TypeName="PortalesModel.CONF_SECCION_LIVERPOOL">
+              <MappingFragment StoreEntitySet="CONF_SECCION_LIVERPOOL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="SECCION_INI" ColumnName="SECCION_INI" />
+                <ScalarProperty Name="SECCION_FIN" ColumnName="SECCION_FIN" />
+                <ScalarProperty Name="TIENDA_INI" ColumnName="TIENDA_INI" />
+                <ScalarProperty Name="TIENDA_FIN" ColumnName="TIENDA_FIN" />
+                <ScalarProperty Name="GRUPO" ColumnName="GRUPO" />
+                <ScalarProperty Name="PROVEEDOR" ColumnName="PROVEEDOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cProcesos">
+            <EntityTypeMapping TypeName="PortalesModel.cProcesos">
+              <MappingFragment StoreEntitySet="cProcesos">
+                <ScalarProperty Name="cProEmpresa" ColumnName="cProEmpresa" />
+                <ScalarProperty Name="cProSociedad" ColumnName="cProSociedad" />
+                <ScalarProperty Name="cProProceso" ColumnName="cProProceso" />
+                <ScalarProperty Name="cProSecuencia" ColumnName="cProSecuencia" />
+                <ScalarProperty Name="cProTipo" ColumnName="cProTipo" />
+                <ScalarProperty Name="cProAtributo" ColumnName="cProAtributo" />
+                <ScalarProperty Name="cProNombreAtributo" ColumnName="cProNombreAtributo" />
+                <ScalarProperty Name="cProValorAtributo" ColumnName="cProValorAtributo" />
+                <ScalarProperty Name="cProAccion" ColumnName="cProAccion" />
+                <ScalarProperty Name="cProHabilitar" ColumnName="cProHabilitar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DESCARGAS">
+            <EntityTypeMapping TypeName="PortalesModel.DESCARGAS">
+              <MappingFragment StoreEntitySet="DESCARGAS">
+                <ScalarProperty Name="ID_DESCARGA" ColumnName="ID_DESCARGA" />
+                <ScalarProperty Name="CADENA" ColumnName="CADENA" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="STS" ColumnName="STS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETDESCARGAS_20012016">
+            <EntityTypeMapping TypeName="PortalesModel.DETDESCARGAS_20012016">
+              <MappingFragment StoreEntitySet="DETDESCARGAS_20012016">
+                <ScalarProperty Name="ID_DESCARGA" ColumnName="ID_DESCARGA" />
+                <ScalarProperty Name="ID_LOG" ColumnName="ID_LOG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="TIPOMSG" ColumnName="TIPOMSG" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETDESCARGAS_26012017">
+            <EntityTypeMapping TypeName="PortalesModel.DETDESCARGAS_26012017">
+              <MappingFragment StoreEntitySet="DETDESCARGAS_26012017">
+                <ScalarProperty Name="ID_DESCARGA" ColumnName="ID_DESCARGA" />
+                <ScalarProperty Name="ID_LOG" ColumnName="ID_LOG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="TIPOMSG" ColumnName="TIPOMSG" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstatusPH">
+            <EntityTypeMapping TypeName="PortalesModel.EstatusPH">
+              <MappingFragment StoreEntitySet="EstatusPH">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Intento" ColumnName="Intento" />
+                <ScalarProperty Name="TipoArchivo" ColumnName="TipoArchivo" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="idDescarga" ColumnName="idDescarga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ARCHIVOS_SELLIN">
+            <EntityTypeMapping TypeName="PortalesModel.ARCHIVOS_SELLIN">
+              <MappingFragment StoreEntitySet="ARCHIVOS_SELLIN">
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="CLIENTE" ColumnName="CLIENTE" />
+                <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+                <ScalarProperty Name="RUTA" ColumnName="RUTA" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cLogin_Respaldo">
+            <EntityTypeMapping TypeName="PortalesModel.cLogin_Respaldo">
+              <MappingFragment StoreEntitySet="cLogin_Respaldo">
+                <ScalarProperty Name="cLogId" ColumnName="cLogId" />
+                <ScalarProperty Name="cLogPortal" ColumnName="cLogPortal" />
+                <ScalarProperty Name="cLogEmpresa" ColumnName="cLogEmpresa" />
+                <ScalarProperty Name="cLogUsuario" ColumnName="cLogUsuario" />
+                <ScalarProperty Name="cLogContrasenia" ColumnName="cLogContrasenia" />
+                <ScalarProperty Name="cLogUrl" ColumnName="cLogUrl" />
+                <ScalarProperty Name="cLogRutaDescarga" ColumnName="cLogRutaDescarga" />
+                <ScalarProperty Name="cLogOutUrl" ColumnName="cLogOutUrl" />
+                <ScalarProperty Name="RutaOTB" ColumnName="RutaOTB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETDESCARGAS">
+            <EntityTypeMapping TypeName="PortalesModel.DETDESCARGAS">
+              <MappingFragment StoreEntitySet="DETDESCARGAS">
+                <ScalarProperty Name="ID_DESCARGA" ColumnName="ID_DESCARGA" />
+                <ScalarProperty Name="ID_LOG" ColumnName="ID_LOG" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="TIPOMSG" ColumnName="TIPOMSG" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECARGAS_CONF">
+            <EntityTypeMapping TypeName="PortalesModel.RECARGAS_CONF">
+              <MappingFragment StoreEntitySet="RECARGAS_CONF">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="CADENA" ColumnName="CADENA" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="TIPOARCHIVO" ColumnName="TIPOARCHIVO" />
+                <ScalarProperty Name="RESULTADO" ColumnName="RESULTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cLoginPhReportTypes">
+            <EntityTypeMapping TypeName="PortalesModel.cLoginPhReportTypes">
+              <MappingFragment StoreEntitySet="cLoginPhReportTypes">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cLoginPhReportSalesInv">
+            <EntityTypeMapping TypeName="PortalesModel.cLoginPhReportSalesInv">
+              <MappingFragment StoreEntitySet="cLoginPhReportSalesInv">
+                <ScalarProperty Name="cLogId" ColumnName="cLogId" />
+                <ScalarProperty Name="InitDocumentId" ColumnName="InitDocumentId" />
+                <ScalarProperty Name="ExcelFileName" ColumnName="ExcelFileName" />
+                <ScalarProperty Name="Spv" ColumnName="Spv" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cLoginPhReportVariables">
+            <EntityTypeMapping TypeName="PortalesModel.cLoginPhReportVariables">
+              <MappingFragment StoreEntitySet="cLoginPhReportVariables">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="ExcelFileName" ColumnName="ExcelFileName" />
+                <ScalarProperty Name="ObjIds" ColumnName="ObjIds" />
+                <ScalarProperty Name="NavUrl" ColumnName="NavUrl" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
