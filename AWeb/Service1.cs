@@ -108,7 +108,6 @@ namespace AWeb
                 var yesterdayStr = yesterday.ToString("ddMMyyyy");
                 var users = await (from x in context.cLogin
                                    where x.cLogPortal == "PH"
-                                   && x.cLogEmpresa != "COSTIX"
                                    select new User
                                    {
                                        User = x.cLogUsuario,
