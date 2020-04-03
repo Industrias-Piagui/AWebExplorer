@@ -124,14 +124,13 @@ namespace AWeb
                                        SalesVsInvParams = (from s in context.cLoginPhReportSalesInv
                                                            join u in context.cLogin on s.cLogId equals u.cLogId
                                                            where u.cLogUsuario == x.cLogUsuario
-                                                           select s)
-                                                           .ToList()
-                                                           .Select(x1 => new DownloadFileSalesVsInvParams
+                                                           select new DownloadFileSalesVsInvParams
                                                            {
-                                                               Spv = JsonConvert.DeserializeObject<List<ProcesDocumentModel>>(x1.Spv),
-                                                               ExcelFileName = x1.ExcelFileName,
-                                                               InitDocumentId = x1.InitDocumentId
-                                                           }).ToList()
+                                                               Spv = s.Spv,
+                                                               ExcelFileName = s.ExcelFileName,
+                                                               InitDocumentId = s.InitDocumentId
+                                                           })
+                                                           .ToList()
                                    }).ToListAsync();
 
                 foreach (var login in users)
