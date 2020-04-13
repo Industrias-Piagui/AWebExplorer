@@ -106,6 +106,35 @@ namespace AWeb
                 var aweb = new AwebExplorer();
                 var yesterday = DateTime.Today.AddDays(-1);
                 var yesterdayStr = yesterday.ToString("ddMMyyyy");
+                List<DownloadFileSalesVsInvParams> LstSInvIDS = new List<DownloadFileSalesVsInvParams>();
+                var t1 = (from s in context.cLoginPhReportSalesInv
+                          join u in context.cLogin on s.cLogId equals u.cLogId
+                          select new
+                          {
+                              s.Id,
+                              u.cLogUsuario,
+                              s.Spv,
+                              s.ExcelFileName,
+                              s.InitDocumentId
+                          }).ToList();
+                foreach(var rf in t1)
+                {
+                    List<ProcesDocumentModel> spv2 = new List<ProcesDocumentModel>();
+                    try
+                    {
+                        spv2 = JsonConvert.DeserializeObject<List<ProcesDocumentModel>>(rf.Spv);
+                        LstSInvIDS.Add(new DownloadFileSalesVsInvParams
+                        {
+                            cLogUsuario = rf.cLogUsuario,
+                            Spv = spv2,
+                            ExcelFileName = rf.ExcelFileName,
+                            InitDocumentId = rf.InitDocumentId
+                        });
+                    }
+                    catch (Exception) {
+                    }
+                    
+                }
                 var users = await (from x in context.cLogin
                                    where x.cLogPortal == "PH"
                                    select new User
@@ -120,21 +149,16 @@ namespace AWeb
                                                         ObjIds = x1.ObjIds,
                                                         ExcelFileName = x1.ExcelFileName,
                                                         TypeId = (DownloadFileVariablesTypes)x1.TypeId
-                                                    }).ToList(),
-                                       SalesVsInvParams = (from s in context.cLoginPhReportSalesInv
-                                                           join u in context.cLogin on s.cLogId equals u.cLogId
-                                                           where u.cLogUsuario == x.cLogUsuario
-                                                           select new DownloadFileSalesVsInvParams
-                                                           {
-                                                               Spv = s.Spv,
-                                                               ExcelFileName = s.ExcelFileName,
-                                                               InitDocumentId = s.InitDocumentId
-                                                           })
-                                                           .ToList()
+                                                    }).ToList()
                                    }).ToListAsync();
 
                 foreach (var login in users)
                 {
+                    login.SalesVsInvParams = (from s in LstSInvIDS
+                                              where s.cLogUsuario == login.User
+                                              select s).ToList();
+
+
 #if !(DEBUG)
                     var downloadPath = login.DownloadPath;
                     var salesList = await aweb.DownloadAsync(login, yesterday, yesterday);
@@ -187,9 +211,11 @@ namespace AWeb
 
         private void MergeInvIpiFiles(ref List<SalesVsInventories> salesList)
         {
-            var invIpi = (from x in salesList where x.ExcelFileName.Contains("_IPI") select x).ToList();
+            //where x.ExcelFileName.Contains("_IPI")
+            var invIpi = (from x in salesList  select x).ToList();
             SalesVsInventories invIpi1;
             SalesVsInventories invIpi2;
+
             if (invIpi.FirstOrDefault().ExcelFileName.Contains("_IPI1"))
             {
                 invIpi1 = invIpi[0];
@@ -200,6 +226,7 @@ namespace AWeb
                 invIpi1 = invIpi[1];
                 invIpi2 = invIpi[0];
             }
+            
 
             using (var memory1 = new MemoryStream(invIpi1.ExcelContent))
             {
