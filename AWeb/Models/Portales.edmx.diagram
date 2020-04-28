@@ -21,7 +21,7 @@
         <EntityTypeShape EntityType="PortalesModel.DETDESCARGAS" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalesModel.RECARGAS_CONF" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalesModel.cLoginPhReportTypes" Width="1.5" PointX="8.75" PointY="11.75" />
-        <EntityTypeShape EntityType="PortalesModel.cLoginPhReportSalesInv" Width="1.5" PointX="5" PointY="11.375" />
+        <EntityTypeShape EntityType="PortalesModel.cLoginPhReportSalesInv" Width="1.5" PointX="5" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalesModel.cLoginPhReportVariables" Width="1.5" PointX="11" PointY="11.5" />
         <AssociationConnector Association="PortalesModel.FK_cLoginPhReportSalesInv_cLogin" />
         <AssociationConnector Association="PortalesModel.FK_cLoginPhReportVariables_cLoginPhReportTypes" />

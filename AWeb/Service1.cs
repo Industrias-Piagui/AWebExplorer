@@ -109,6 +109,7 @@ namespace AWeb
                 List<DownloadFileSalesVsInvParams> LstSInvIDS = new List<DownloadFileSalesVsInvParams>();
                 var t1 = (from s in context.cLoginPhReportSalesInv
                           join u in context.cLogin on s.cLogId equals u.cLogId
+                          where s.Bnd_Activo == true 
                           select new
                           {
                               s.Id,
@@ -117,12 +118,49 @@ namespace AWeb
                               s.ExcelFileName,
                               s.InitDocumentId
                           }).ToList();
+
+                DateTime FMen1 = DateTime.Now.AddDays(-1);
                 foreach(var rf in t1)
                 {
                     List<ProcesDocumentModel> spv2 = new List<ProcesDocumentModel>();
                     try
                     {
                         spv2 = JsonConvert.DeserializeObject<List<ProcesDocumentModel>>(rf.Spv);
+                        foreach(var BFec in spv2)
+                        {
+                            if (BFec.Id == "1.Fecha Inicio (Desde)")
+                            {
+                                foreach(var cap in BFec.Values)
+                                {
+                                    cap.Caption = FMen1.ToString("dd/MM/yyyy 12:00:00");
+                                }
+                            }
+                            if (BFec.Id == "2.Fecha Fin (Hasta 90 días)")
+                            {
+                                foreach (var cap in BFec.Values)
+                                {
+                                    cap.Caption = FMen1.ToString("dd/MM/yyyy 12:00:00");
+                                }
+                            }
+                            if(BFec.Id== "1.Mes inicial")
+                            {
+                                foreach (var cap in BFec.Values)
+                                {
+                                    cap.Caption = FMen1.ToString("MM.yyyy");
+                                    cap.Key = "[0CALMONTH].["+ FMen1.ToString("yyyyMM") + "]";
+                                }
+                            }
+                            if(BFec.Id== "2.Mes final")
+                            {
+                                foreach (var cap in BFec.Values)
+                                {
+                                    cap.Caption = FMen1.ToString("MM.yyyy");
+                                    cap.Key = "[0CALMONTH].[" + FMen1.ToString("yyyyMM") + "]";
+                                }
+                            }
+                        }
+
+
                         LstSInvIDS.Add(new DownloadFileSalesVsInvParams
                         {
                             cLogUsuario = rf.cLogUsuario,
@@ -136,7 +174,8 @@ namespace AWeb
                     
                 }
                 var users = await (from x in context.cLogin
-                                   where x.cLogPortal == "PH"
+                                   where x.cLogPortal == "PH" 
+                                   orderby x.cLogId
                                    select new User
                                    {
                                        User = x.cLogUsuario,
@@ -211,50 +250,62 @@ namespace AWeb
 
         private void MergeInvIpiFiles(ref List<SalesVsInventories> salesList)
         {
-            //where x.ExcelFileName.Contains("_IPI")
-            var invIpi = (from x in salesList  select x).ToList();
-            SalesVsInventories invIpi1;
-            SalesVsInventories invIpi2;
-
-            if (invIpi.FirstOrDefault().ExcelFileName.Contains("_IPI1"))
+            var gropFileXLS = (from s in salesList
+                               group s by new
+                               {
+                                   s.ExcelFileName
+                               } into g
+                               select new
+                               {
+                                   g.Key.ExcelFileName
+                               }).ToList();
+            foreach (var gindx in gropFileXLS)
             {
-                invIpi1 = invIpi[0];
-                invIpi2 = invIpi[1];
-            }
-            else
-            {
-                invIpi1 = invIpi[1];
-                invIpi2 = invIpi[0];
-            }
-            
-
-            using (var memory1 = new MemoryStream(invIpi1.ExcelContent))
-            {
-                using (var memory2 = new MemoryStream(invIpi2.ExcelContent))
+                //where x.ExcelFileName.Contains("_IPI")
+                var invIpi = (from x in salesList where x.ExcelFileName == gindx.ExcelFileName select x).ToList();
+                if (invIpi.Count == 2)
                 {
-                    using (var excel1 = new ExcelPackage(memory1))
+                    SalesVsInventories invIpi1;
+                    SalesVsInventories invIpi2;
+                    if (invIpi.FirstOrDefault().ExcelFileName.Contains("_IPI1"))
                     {
-                        using (var excel2 = new ExcelPackage(memory2))
+                        invIpi1 = invIpi[0];
+                        invIpi2 = invIpi[1];
+                    }
+                    else
+                    {
+                        invIpi1 = invIpi[1];
+                        invIpi2 = invIpi[0];
+                    }
+                    using (var memory1 = new MemoryStream(invIpi1.ExcelContent))
+                    {
+                        using (var memory2 = new MemoryStream(invIpi2.ExcelContent))
                         {
-                            using (var excel3 = new ExcelPackage())
+                            using (var excel1 = new ExcelPackage(memory1))
                             {
-                                var sheet1 = excel1.Workbook.Worksheets.FirstOrDefault();
-                                var sheet2 = excel2.Workbook.Worksheets.FirstOrDefault();
-                                var sheet3 = excel3.Workbook.Worksheets.Add(sheet1.Name);
-                                sheet2.DeleteRow(1);
-                                sheet2.DeleteRow(1);
-                                sheet3.MergeSheets(sheet1);
-                                sheet3.MergeSheets(sheet2);
-                                invIpi1.ExcelContent = excel3.GetAsByteArray();
-                                salesList.Remove(invIpi2);
-                            }
+                                using (var excel2 = new ExcelPackage(memory2))
+                                {
+                                    using (var excel3 = new ExcelPackage())
+                                    {
+                                        var sheet1 = excel1.Workbook.Worksheets.FirstOrDefault();
+                                        var sheet2 = excel2.Workbook.Worksheets.FirstOrDefault();
+                                        var sheet3 = excel3.Workbook.Worksheets.Add(sheet1.Name);
+                                        sheet2.DeleteRow(1);
+                                        sheet2.DeleteRow(1);
+                                        sheet3.MergeSheets(sheet1);
+                                        sheet3.MergeSheets(sheet2);
+                                        invIpi1.ExcelContent = excel3.GetAsByteArray();
+                                        salesList.Remove(invIpi2);
+                                    }
 
-                            /*var sheet = excel2.Workbook.Worksheets.FirstOrDefault();
-                            sheet.DeleteRow(1);
-                            sheet.DeleteRow(1);
-                            excel1.Workbook.Worksheets.FirstOrDefault().MergeSheets(sheet);
-                            invIpi1.ExcelContent = excel1.GetAsByteArray();
-                            salesList.Remove(invIpi2);*/
+                                    /*var sheet = excel2.Workbook.Worksheets.FirstOrDefault();
+                                    sheet.DeleteRow(1);
+                                    sheet.DeleteRow(1);
+                                    excel1.Workbook.Worksheets.FirstOrDefault().MergeSheets(sheet);
+                                    invIpi1.ExcelContent = excel1.GetAsByteArray();
+                                    salesList.Remove(invIpi2);*/
+                                }
+                            }
                         }
                     }
                 }

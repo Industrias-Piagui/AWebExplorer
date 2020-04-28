@@ -95,6 +95,7 @@ advertencia 6002: La tabla o vista 'PortalesPROD.dbo.cLogin_Respaldo' no tiene d
           <Property Name="ExcelFileName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="InitDocumentId" Type="int" Nullable="false" />
           <Property Name="cLogId" Type="int" Nullable="false" />
+          <Property Name="Bnd_Activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="cLoginPhReportTypes">
           <Key>
@@ -548,6 +549,7 @@ advertencia 6002: La tabla o vista 'PortalesPROD.dbo.RECARGAS_CONF' no tiene def
           <Property Name="InitDocumentId" Type="Int32" Nullable="false" />
           <Property Name="cLogId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cLogin" Relationship="PortalesModel.FK_cLoginPhReportSalesInv_cLogin" FromRole="cLoginPhReportSalesInv" ToRole="cLogin" />
+          <Property Name="Bnd_Activo" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="cLoginPhReportVariables">
           <Key>
@@ -787,6 +789,7 @@ advertencia 6002: La tabla o vista 'PortalesPROD.dbo.RECARGAS_CONF' no tiene def
           <EntitySetMapping Name="cLoginPhReportSalesInv">
             <EntityTypeMapping TypeName="PortalesModel.cLoginPhReportSalesInv">
               <MappingFragment StoreEntitySet="cLoginPhReportSalesInv">
+                <ScalarProperty Name="Bnd_Activo" ColumnName="Bnd_Activo" />
                 <ScalarProperty Name="cLogId" ColumnName="cLogId" />
                 <ScalarProperty Name="InitDocumentId" ColumnName="InitDocumentId" />
                 <ScalarProperty Name="ExcelFileName" ColumnName="ExcelFileName" />

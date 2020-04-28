@@ -19,6 +19,7 @@ namespace AWeb.Models
         public string ExcelFileName { get; set; }
         public int InitDocumentId { get; set; }
         public int cLogId { get; set; }
+        public bool Bnd_Activo { get; set; }
     
         public virtual cLogin cLogin { get; set; }
     }
