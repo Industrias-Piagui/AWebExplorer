@@ -174,7 +174,7 @@ namespace AWeb
                     
                 }
                 var users = await (from x in context.cLogin
-                                   where x.cLogPortal == "PH" 
+                                   where x.cLogPortal == "PH"
                                    orderby x.cLogId
                                    select new User
                                    {
