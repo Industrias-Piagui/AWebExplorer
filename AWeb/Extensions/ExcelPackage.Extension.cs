@@ -29,7 +29,7 @@ namespace AWeb.Extensions
 
             for (var row = 1; row <= totalRowCount2; row++)
                 for (var col = 1; col <= maxColumnNumber; col++)
-                    sheet.Cells[row + totalRowCount, col].Value = anotherSheet.Cells[row, col]?.Value;
+                    sheet.Cells[row + totalRowCount, col].Value = anotherSheet.Cells[row, col]?.Value.ToString().Replace(",", "|");
         }
 
         private static string GetRowAsCsv(ExcelWorksheet sheet, int row, int maxColumnNumber)
