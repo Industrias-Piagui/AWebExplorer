@@ -174,10 +174,11 @@ namespace AWeb
                     
                 }
                 var users = await (from x in context.cLogin
-                                   where x.cLogPortal == "PH" //&& x.cLogId==22
+                                   where x.cLogPortal == "PH" //&& x.cLogId == 22
                                    orderby x.cLogId
                                    select new User
                                    {
+                                       IDlogin = x.cLogId,
                                        User = x.cLogUsuario,
                                        Password = x.cLogContrasenia,
                                        DownloadPath = x.cLogRutaDescarga,
@@ -190,8 +191,9 @@ namespace AWeb
                                                         TypeId = (DownloadFileVariablesTypes)x1.TypeId
                                                     }).ToList()
                                    }).ToListAsync();
-
-                foreach (var login in users)
+                int[] ordeIDlog = { 10, 23, 22 };
+                var UserOrder = users.OrderBy(ch => Array.IndexOf(ordeIDlog, ch.IDlogin));
+                foreach (var login in UserOrder)
                 {
                     login.SalesVsInvParams = (from s in LstSInvIDS
                                               where s.cLogUsuario == login.User
@@ -202,7 +204,7 @@ namespace AWeb
                     var downloadPath = login.DownloadPath;
                     var salesList = await aweb.DownloadAsync(login, yesterday, yesterday);
 #else
-                    var downloadPath = "EXCEL";
+                    var downloadPath = login.DownloadPath;// "EXCEL";//
                     var salesList = aweb.Download(login, yesterday, yesterday);
 #endif
                     MergeInvIpiFiles(ref salesList);
@@ -214,9 +216,16 @@ namespace AWeb
                         {
                             using (var excel = new ExcelPackage(memory))
                             {
-                                RemoveUnecesaryFields(excel);
-                                var buffer = excel.GetCsv(excel.Workbook.Worksheets.FirstOrDefault());
-                                File.WriteAllBytes($@"{downloadPath}\{fileName}", buffer);
+                                try
+                                {
+                                    RemoveUnecesaryFields(excel);
+                                    var buffer = excel.GetCsv(excel.Workbook.Worksheets.FirstOrDefault());
+                                    File.WriteAllBytes($@"{downloadPath}\{fileName}", buffer);
+                                }
+                                catch(Exception e) 
+                                {
+                                    var sd = e.Message;
+                                }
                             }
                         }
 
