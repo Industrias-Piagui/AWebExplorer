@@ -7,6 +7,8 @@ namespace AWebGui.EF
     {
         public DbSet<Archivos> Archivos { get; set; }
         public DbSet<CLogid> CLogid { get; set; }
+        public DbSet<cLoginPhReportSalesInv> cLoginPhReportSalesInvs { get; set; }
+        public DbSet<cLoginPhReportVariables> cLoginPhReportVariables { get; set; }
 
         public PortalesContext(DbContextOptions<PortalesContext> options) : base(options)
         { }

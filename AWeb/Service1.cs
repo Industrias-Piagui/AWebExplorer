@@ -229,7 +229,7 @@ namespace AWeb
                             }
                         }
 
-#if !(DEBUG)
+//#if !(DEBUG)
                         if (context.ARCHIVOS.FirstOrDefault(x => x.FECHA == yesterdayStr && x.CLIENTE == "3" && x.ARCHIVO == fileName) == null)
                         {
                             context.ARCHIVOS.Add(new ARCHIVOS
@@ -241,7 +241,7 @@ namespace AWeb
                                 TIPO = fileName.Contains("_VTA_") ? "VTA" : "INV"
                             });
                         }
-#endif
+//#endif
                     }
 
                     context.SaveChanges();
